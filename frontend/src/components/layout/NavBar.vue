@@ -35,6 +35,7 @@
                 </DropdownMenuTrigger>
 
                  <router-link :to="{ name: 'tarefas' }">Ir para Tarefas</router-link>
+                 <router-link :to="{ name: 'atividades' }">Ir para x</router-link>
 
                 <DropdownMenuContent align="start">
                     <DropdownMenuItem>

@@ -25,11 +25,10 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::apiResource('tarefas', TarefaController::class);
-
+    Route::apiResource('atividades', AtividadeController::class);
     Route::post('logout', [AuthController::class, 'logout']);
 });
 
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::apiResource('atividades', AtividadeController::class);
 

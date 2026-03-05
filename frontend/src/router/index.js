@@ -35,6 +35,12 @@ const router = createRouter({
       path: '/atividades',
       name: 'atividades',
       component: () => AtividadesPage,
+    },
+    {
+      path: '/atividades/:id/editar',
+      name: 'atividades.editar',
+      component: () => import('@/pages/AtividadeEditPage.vue'),
+      props: true // Permite receber o :id como uma prop no componente
     }
   ],
 })

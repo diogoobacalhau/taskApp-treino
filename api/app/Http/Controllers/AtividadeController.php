@@ -20,7 +20,17 @@ class AtividadeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nome' => 'required|string'
+        ]);
+
+        $atividade = Atividade::create([
+            'nome' => $validated['nome'],
+            'user_id' => auth()->id()
+        ]);
+
+        return response()->json($atividade,201);
+
     }
 
     /**
@@ -36,7 +46,14 @@ class AtividadeController extends Controller
      */
     public function update(Request $request, Atividade $atividade)
     {
-        //
+        $validated = $request->validate([
+            'nome' => 'required|string'
+        ]);
+
+        $atividade->update($validated);
+        
+        return response()->json($atividade,200);
+
     }
 
     /**
