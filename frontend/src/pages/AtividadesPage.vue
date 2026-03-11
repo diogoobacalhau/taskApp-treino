@@ -1,9 +1,9 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 // Importante: Em algumas versões do Vue, o RouterLink precisa ser reconhecido
-import { RouterLink } from 'vue-router' 
+import { RouterLink } from 'vue-router'
 import { useAtividadeStore } from '@/stores/atividade';
-import { Button } from '@/components/ui/button' 
+import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
 const atividadeStore = useAtividadeStore();
@@ -16,6 +16,16 @@ async function submeterAtividade() {
     novoNome.value = '';
   } catch (err) {
     alert("Erro ao criar!");
+  }
+}
+
+async function confirmarExclusao(id) {
+  if (confirm("Tens a certeza que queres apagar esta atividade?")) {
+    try {
+      await atividadeStore.deleteAtividade(id);
+    } catch (err) {
+      alert("Erro ao apagar!");
+    }
   }
 }
 
@@ -45,14 +55,18 @@ onMounted(() => {
     </div>
 
     <div v-else class="grid gap-4">
-      <div v-for="atividade in atividadeStore.atividades" :key="atividade.id" 
-           class="border p-4 rounded shadow flex justify-between items-center">
-        
+      <div v-for="atividade in atividadeStore.atividades" :key="atividade.id"
+        class="border p-4 rounded shadow flex justify-between items-center">
+
         <h2 class="text-xl font-semibold">{{ atividade.id }} - {{ atividade.nome }}</h2>
-        
+
         <router-link :to="{ name: 'atividades.editar', params: { id: atividade.id } }">
           <Button variant="outline">Editar</Button>
         </router-link>
+
+        <Button variant="destructive" @click="confirmarExclusao(atividade.id)">
+          Apagar
+        </Button>
       </div>
     </div>
   </div>

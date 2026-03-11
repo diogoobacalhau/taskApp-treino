@@ -22,9 +22,6 @@ onMounted(async () => {
     }
 })
 
-
-
-
 async function guardarAlteracao() {
     try {
         await atividadeStore.updateAtividade(route.params.id, { nome: nomeAtividade.value })
@@ -36,22 +33,10 @@ async function guardarAlteracao() {
 </script>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <template>
     <div class="p-6 max-w-md mx-auto">
         <h1 class="text-2xl font-bold mb-4">Editar Atividade</h1>
+
         <div class="space-y-4">
             <Input v-model="nomeAtividade" placeholder="Nome da atividade" />
             <div class="flex gap-2">
@@ -59,5 +44,7 @@ async function guardarAlteracao() {
                 <Button variant="outline" @click="router.back()">Cancelar</Button>
             </div>
         </div>
+
+        
     </div>
 </template>

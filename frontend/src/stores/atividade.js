@@ -10,23 +10,21 @@ export const useAtividadeStore = defineStore("atividade", () => {
   async function getAtividades() {
     loading.value = true;
     try {
-      const response = await axios.get(`${apiBaseURL}/atividades`);
-      atividades.value = response.data;
+        const response = await axios.get(`${apiBaseURL}/atividades`);
+        atividades.value = response.data;
     } catch (error) {
-      console.error("Erro ao obter atividades:", error);
+        console.error("Erro ao obter atividades:", error);
     } finally {
-      loading.value = false;
+        loading.value = false;
     }
   }
 
   async function postAtividade(novaAtividade) {
     try {
-      const response = await axios.post(
-        `${apiBaseURL}/atividades`,
-        novaAtividade
-      );
-      console.log("Resposta do Laravel:", response.data);
+      const response = await axios.post( `${apiBaseURL}/atividades`,novaAtividade);
+
       atividades.value.push(response.data);
+      
     } catch (error) {
       console.error("erro ao criar atividade", error);
       throw error;
@@ -60,7 +58,21 @@ export const useAtividadeStore = defineStore("atividade", () => {
     } finally {
         loading.value = false;
     }
-}
+  }
+
+  async function deleteAtividade(id) {
+    try {
+        // 1. Envia o pedido de eliminação para o Laravel
+        await axios.delete(`${apiBaseURL}/atividades/${id}`);
+
+        // 2. Filtra a lista local: "Cria uma lista nova onde NÃO esteja o ID que apaguei"
+        atividades.value = atividades.value.filter(at => at.id !== id);
+
+    } catch (error) {
+        console.error("Erro ao apagar atividade:", error);
+        throw error; // Lança o erro para o componente saber que falhou
+    }
+  }
 
   return {
     getAtividades,
@@ -68,6 +80,7 @@ export const useAtividadeStore = defineStore("atividade", () => {
     loading,
     postAtividade,
     updateAtividade,
-    getAtividade
+    getAtividade,
+    deleteAtividade
   };
 });

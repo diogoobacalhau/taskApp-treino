@@ -13,7 +13,6 @@ const studentNumber = import.meta.env.VITE_STUDENT_NUMBER || 'XXXXXXX'
 
 const app = createApp(App)
 
-app.provide('socket', io(wsConnection))
 app.provide('serverBaseURL', `http://${apiDomain}`)
 app.provide('apiBaseURL', `http://${apiDomain}/api`)
 app.provide('studentName', studentName)

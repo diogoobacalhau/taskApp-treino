@@ -13,6 +13,7 @@ class AtividadeController extends Controller
     public function index()
     {
         return Atividade::all();
+        //return Atividade::where('user_id', auth()->id())->get();
     }
 
     /**
@@ -61,6 +62,8 @@ class AtividadeController extends Controller
      */
     public function destroy(Atividade $atividade)
     {
-        //
+        $atividade->delete();
+
+        return response()->json(["message" => 'apagado com sucesso!'], 200);
     }
 }

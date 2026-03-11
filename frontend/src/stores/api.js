@@ -41,7 +41,7 @@ export const useAPIStore = defineStore('api', () => {
 
   return {
     postLogin,
-    postRegister, // Não esquecer de exportar aqui
+    postRegister, 
     postLogout,
     getAuthUser,
   }
